@@ -3,7 +3,6 @@
 namespace frontend\controllers;
 
 use common\components\parse\csv\Parser;
-use common\models\AddrList;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -13,8 +12,8 @@ use yii\web\Controller;
 use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-// use yii\helpers\FileHelper;
 use common\models\LoginForm;
+use common\models\AddrList;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
@@ -93,6 +92,20 @@ class SiteController extends Controller
         }
         
         return $this->render('index', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionMap()
+    {
+        $model = AddrList::find()
+            ->select(['address', 'lon', 'lat'])
+            ->asArray()
+            ->all();
+
+        $model = json_encode($model, JSON_UNESCAPED_UNICODE);
+
+        return $this->render('map', [
             'model' => $model,
         ]);
     }

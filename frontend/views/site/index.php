@@ -2,7 +2,7 @@
 
 /** @var yii\web\View $this */
 
-$this->title = '----- Yii2 -----';
+$this->title = 'Загрузка файла';
 ?>
 <?php
 

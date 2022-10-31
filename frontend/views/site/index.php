@@ -13,9 +13,6 @@ use yii\widgets\ActiveForm;
 /** @var frontend\models\forms\ProvidersUpload $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
-<?php if ($message) :?>
-<h3><?= $message ?> - загружен</h3>
-<?php endif ?>
 
 <div class="tracks-form">
 

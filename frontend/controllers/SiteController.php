@@ -81,23 +81,19 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $model = new ProvidersUpload();
-        $downloadMessage = '';
 
         if ($this->request->isPost) {
             $model->file = UploadedFile::getInstance($model, 'file');
 
             if ($model->upload()) {
-                $p = new Parser($model, Yii::$app->yageo, $model->file_id);
+                $p = new Parser($model, Yii::$app->yageo);
                 
                 $p->go();
-
-                $downloadMessage = $model->name;
             }
         }
         
         return $this->render('index', [
             'model' => $model,
-            'message' => $downloadMessage,
         ]);
     }
 

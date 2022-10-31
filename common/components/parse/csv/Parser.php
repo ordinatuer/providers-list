@@ -13,13 +13,11 @@ class Parser
 
     private Model $file;
     private $geocoder;
-    private $file_id;
 
-    public function __construct(Model $file, $geocoder, int $file_id)
+    public function __construct(Model $file, $geocoder)
     {
         $this->file = $file;
         $this->geocoder = $geocoder;
-        $this->file_id = $file_id;
     }
 
     /**
@@ -47,7 +45,7 @@ class Parser
                 // сохранение
                 $model = new AddrList();
 
-                $model->file_id = $this->file_id;
+                $model->file_id = $this->file->file_id;
                 $model->city = $this->geocoder->city;
 
                 $model->street = $address[0];

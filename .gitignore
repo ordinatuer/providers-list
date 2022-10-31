@@ -50,3 +50,4 @@ phpunit.phar
 /docker
 
 *.bat
+/frontend/web/uploads

@@ -2,19 +2,24 @@
 
 namespace frontend\controllers;
 
+use common\components\parse\csv\Parser;
+use common\models\AddrList;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
+use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+// use yii\helpers\FileHelper;
 use common\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use frontend\models\forms\ProvidersUpload;
 
 /**
  * Site controller
@@ -75,7 +80,25 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $model = new ProvidersUpload();
+        $downloadMessage = '';
+
+        if ($this->request->isPost) {
+            $model->file = UploadedFile::getInstance($model, 'file');
+
+            if ($model->upload()) {
+                $p = new Parser($model, Yii::$app->yageo, $model->file_id);
+                
+                $p->go();
+
+                $downloadMessage = $model->name;
+            }
+        }
+        
+        return $this->render('index', [
+            'model' => $model,
+            'message' => $downloadMessage,
+        ]);
     }
 
     /**

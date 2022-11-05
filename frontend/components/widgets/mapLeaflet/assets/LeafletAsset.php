@@ -14,7 +14,7 @@ class LeafletAsset extends AssetBundle
     ];
     public $js = [
         'https://unpkg.com/leaflet@1.9.2/dist/leaflet.js',
-        'js/map.js',
+        // 'js/map.js',
     ];
     public $depends = [
         'frontend\assets\AppAsset',
